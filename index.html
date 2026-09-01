@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clearcut — remove text from video</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <span class="wordmark">Clearcut</span>
+      <span class="tagline">text removal for video</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Drop a video. We erase the text.</h1>
+      <p class="hero-sub">
+        Captions, watermarks, on-screen labels — detected frame by frame and
+        painted out, without touching the footage underneath.
+      </p>
+    </section>
+
+    <section class="panel" id="upload-panel">
+      <div class="dropzone" id="dropzone">
+        <input type="file" id="file-input" accept="video/*" hidden />
+        <div class="dropzone-content" id="dropzone-idle">
+          <svg class="drop-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M24 6V30M24 6L15 15M24 6L33 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 32V36C8 38.2091 9.79086 40 12 40H36C38.2091 40 40 38.2091 40 36V32" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <p class="drop-label">Drag a video here, or <span class="link-like">choose a file</span></p>
+          <p class="drop-hint">MP4, MOV or WEBM · up to 60 seconds · 500MB max</p>
+        </div>
+
+        <div class="dropzone-content" id="dropzone-selected" hidden>
+          <video id="preview" muted></video>
+          <div class="selected-meta">
+            <p id="selected-filename">—</p>
+            <button type="button" id="change-file" class="text-btn">Choose a different file</button>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" id="submit-btn" class="primary-btn" disabled>Remove text</button>
+    </section>
+
+    <section class="panel" id="progress-panel" hidden>
+      <div class="progress-row">
+        <span id="progress-label">Queued</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <p class="progress-detail" id="progress-detail">Waiting for a worker to pick this up.</p>
+    </section>
+
+    <section class="panel" id="result-panel" hidden>
+      <h2>Done</h2>
+      <video id="result-video" controls></video>
+      <a id="download-link" class="primary-btn" download>Download video</a>
+      <button type="button" id="restart-btn" class="text-btn">Process another video</button>
+    </section>
+
+    <section class="panel error" id="error-panel" hidden>
+      <p id="error-message">Something went wrong.</p>
+      <button type="button" id="error-retry" class="text-btn">Try again</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>Runs on a self-hosted model. Files are deleted from the server after 24 hours.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
