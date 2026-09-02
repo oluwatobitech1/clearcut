@@ -1,14 +1,8 @@
-fastapi==0.115.0
-uvicorn[standard]==0.30.6
-python-multipart==0.0.9
-celery==5.4.0
 redis==5.0.8
 opencv-python-headless==4.10.0.84
 numpy==1.26.4
 
 # ML pipeline — install once you're wiring up real detection/inpainting.
-# Left commented out because they're heavy (GPU builds, model downloads)
-# and not needed just to run the scaffold end-to-end.
 # paddleocr==2.8.1
 # paddlepaddle-gpu==2.6.1        # or paddlepaddle==2.6.1 for CPU
 # torch==2.3.1                   # required by ProPainter
