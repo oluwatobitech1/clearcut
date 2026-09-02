@@ -100,10 +100,10 @@ submitBtn.addEventListener("click", async () => {
       body: formData,
     });
 
-    if (!res.ok) throw new Error(`Upload failed (${res.status})`);
+    const body = await res.json();
+    if (!res.ok || !body.success) throw new Error(body.message || `Upload failed (${res.status})`);
 
-    const { job_id } = await res.json();
-    pollJob(job_id);
+    pollJob(body.data.job_id);
   } catch (err) {
     showError(err.message || "Upload failed. Check your connection and try again.");
   }
@@ -115,10 +115,10 @@ function pollJob(jobId) {
   pollTimer = setInterval(async () => {
     try {
       const res = await fetch(`${API_BASE}/api/jobs/${jobId}`);
-      if (!res.ok) throw new Error(`Lost track of the job (${res.status})`);
+      const body = await res.json();
+      if (!res.ok || !body.success) throw new Error(body.message || `Lost track of the job (${res.status})`);
 
-      const job = await res.json();
-      handleJobUpdate(job);
+      handleJobUpdate(body.data);
     } catch (err) {
       clearInterval(pollTimer);
       showError(err.message || "Lost connection while checking progress.");
