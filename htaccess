@@ -1,0 +1,10 @@
+RewriteEngine On
+
+# /api/upload  ->  /api/upload.php
+RewriteRule ^api/upload/?$ api/upload.php [L,QSA]
+
+# /api/jobs/{id}  ->  /api/jobs.php?id={id}
+RewriteRule ^api/jobs/([a-f0-9]+)/?$ api/jobs.php?id=$1 [L,QSA]
+
+# /api/results/{id}.mp4  ->  /api/results.php?id={id}
+RewriteRule ^api/results/([a-f0-9]+)\.mp4$ api/results.php?id=$1 [L,QSA]

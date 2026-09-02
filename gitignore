@@ -1,0 +1,19 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Runtime storage — uploaded/processed videos shouldn't be committed
+storage/uploads/*
+storage/results/*
+!storage/uploads/.gitkeep
+!storage/results/.gitkeep
+
+# Logs
+*.log
+
+# Env / secrets
+.env
+
+# OS
+.DS_Store
